@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Diff for watch {{ watch.id }} · changewatch{% endblock %}
+{% block content %}
+<h1>Diff for watch <span class="mono">#{{ watch.id }}</span></h1>
+<p style="color:var(--muted);margin:0 0 4px">
+  <span class="mono">{{ watch.url }}</span>
+  {% if watch.selector %} &middot; selector <span class="mono">{{ watch.selector }}</span>{% endif %}
+</p>
+
+<div class="card">
+  <div class="row" style="gap:8px;flex-wrap:wrap">
+    <span class="tag">interval {{ watch.interval }}s</span>
+    <span class="tag">{% if watch.last_checked %}last check {{ watch.last_checked.strftime('%Y-%m-%d %H:%M') }} UTC{% else %}never checked{% endif %}</span>
+    <span class="tag">{% if watch.ignore_pattern %}ignoring /{{ watch.ignore_pattern }}/{% else %}no ignore pattern{% endif %}</span>
+    <span class="tag">{{ "alert webhook set" if watch.alert_url else "no alert webhook" }}</span>
+  </div>
+</div>
+
+<h2>Added since previous snapshot — {{ changes.added | length }}</h2>
+<div class="card">
+  {% if changes.added %}
+    <pre>{% for line in changes.added %}+ {{ line }}
+{% endfor %}</pre>
+  {% else %}
+    <p style="margin:0;color:var(--muted)">Nothing added: the newest two snapshots agree.</p>
+  {% endif %}
+</div>
+
+<h2>Removed since previous snapshot — {{ changes.removed | length }}</h2>
+<div class="card">
+  {% if changes.removed %}
+    <pre>{% for line in changes.removed %}- {{ line }}
+{% endfor %}</pre>
+  {% else %}
+    <p style="margin:0;color:var(--muted)">Nothing removed: the newest two snapshots agree.</p>
+  {% endif %}
+</div>
+
+<h2>Machine-readable</h2>
+<div class="card">
+  <pre>curl -X POST {{ url_for('watcher.manual_check', wid=watch.id) }}
+curl {{ url_for('watcher.snapshots', wid=watch.id) }}</pre>
+  <p style="margin:10px 0 0;color:var(--muted);font-size:13px">
+    The JSON check route performs the same fetch/diff/store cycle as the
+    “Check now” button on the watch list.
+  </p>
+</div>
+{% endblock %}

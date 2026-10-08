@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: "👀 changewatch"
+  version: 0.1.0
+paths:
+  /api/watches:
+    post:
+      summary: add watch
+      responses:
+        "200":
+          description: ok
+  /api/watches:
+    get:
+      summary: list
+      responses:
+        "200":
+          description: ok
+  /api/watches/<id>/check:
+    post:
+      summary: manual check
+      responses:
+        "200":
+          description: ok
+  /api/watches/<id>/snapshots:
+    get:
+      summary: history
+      responses:
+        "200":
+          description: ok
