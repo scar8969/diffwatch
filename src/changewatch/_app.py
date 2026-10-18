@@ -1,4 +1,4 @@
-"""b3_changewatch — Flask application entry point.
+"""diffwatch — Flask application entry point.
 
 Templates live in the project-root templates/ directory, so the template folder
 is passed explicitly; Flask(__name__) alone would look in web/templates/.

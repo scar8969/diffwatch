@@ -1,4 +1,4 @@
-"""changewatch -- B3 changewatch skeleton — website change monitor."""
+"""changewatch -- B3 changewatch service — website change monitor."""
 from __future__ import annotations
 
 __version__ = "0.1.0"

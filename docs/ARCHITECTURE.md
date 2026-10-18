@@ -1,6 +1,6 @@
 # Architecture -- Changewatch
 
-B3 changewatch skeleton — website change monitor.
+B3 changewatch service — website change monitor.
 
 This document explains how the service is put together, why the seams sit where
 they do, and what breaks first under load.
@@ -9,7 +9,7 @@ they do, and what breaks first under load.
 
 ## 1. Context
 
-b3_changewatch is a single-process Flask service. It owns its own database (SQLite by
+diffwatch is a single-process Flask service. It owns its own database (SQLite by
 default, any SQLAlchemy-supported backend via `DATABASE_URL`) and is deployed
 behind a reverse proxy or an orchestrator.
 
@@ -68,7 +68,7 @@ flowchart TB
 | `templates/base.html` | asset |
 | `templates/diff.html` | asset |
 | `templates/index.html` | asset |
-| `tests/test_b3_changewatch.py` | module |
+| `tests/test_diffwatch.py` | module |
 | `watcher/__init__.py` | module |
 | `watcher/alerts.py` | module |
 | `watcher/api.py` | module |
@@ -137,8 +137,8 @@ writable lives under `/app`.
 
 | Table | Owner |
 | --- | --- |
-| `watches` | owned by `b3_changewatch` |
-| `snapshots` | owned by `b3_changewatch` |
+| `watches` | owned by `diffwatch` |
+| `snapshots` | owned by `diffwatch` |
 
 Tables are created by the application's own bootstrap on first use. No migration
 tool is wired in; the schema is additive, and the service tolerates a missing or

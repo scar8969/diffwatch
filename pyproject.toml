@@ -3,13 +3,13 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "b3-changewatch"
+name = "diffwatch"
 version = "0.1.0"
-description = "B3 changewatch skeleton — website change monitor."
+description = "Website change monitor: snapshot a page on a schedule, diff it, and keep the history."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "project-skeletons maintainers" }]
+authors = [{ name = "Priyanshu Rout" }]
 keywords = ["flask", "service", "changewatch"]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -47,7 +47,7 @@ Documentation = "https://example.invalid/changewatch/docs"
 Issues = "https://example.invalid/changewatch/issues"
 
 [project.scripts]
-b3-changewatch = "changewatch.cli:main"
+diffwatch = "changewatch.cli:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }

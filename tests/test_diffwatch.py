@@ -1,4 +1,4 @@
-"""B3 changewatch — tests. Run: pytest test_b3_changewatch.py"""
+"""B3 changewatch — tests. Run: pytest test_diffwatch.py"""
 import sys, os
 
 import pytest
