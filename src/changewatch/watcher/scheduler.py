@@ -1,13 +1,13 @@
 import hashlib
-
 from datetime import datetime, timedelta
 
+
 def tick():
-    from ..models import Watch, Snapshot
-    from .fetcher import fetch, apply_ignore
-    from .differ import diff
+    from ..models import Snapshot, Watch, db
     from .alerts import alert
-    from ..models import db
+    from .differ import diff
+    from .fetcher import apply_ignore, fetch
+
     changed = []
     for w in Watch.query.all():
         if w.last_checked and datetime.utcnow() - w.last_checked < timedelta(seconds=w.interval):

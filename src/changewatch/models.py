@@ -1,7 +1,9 @@
 from datetime import datetime
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
 
 class Watch(db.Model):
     __tablename__ = "watches"
@@ -14,6 +16,7 @@ class Watch(db.Model):
     last_hash = db.Column(db.String(64), default="")
     last_checked = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
 
 class Snapshot(db.Model):
     __tablename__ = "snapshots"

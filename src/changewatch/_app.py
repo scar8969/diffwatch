@@ -5,23 +5,28 @@ is passed explicitly; Flask(__name__) alone would look in web/templates/.
 The watch list page is templates/index.html (there is no watches.html).
 The SQLite file also lives in the project-root instance/ directory.
 """
+
 import datetime
 
+from flask import Flask, jsonify, redirect, render_template, request, url_for
+
+from . import paths
 from .models import Snapshot, Watch, db
 from .watcher.api import bp
 from .watcher.differ import diff
 from .watcher.fetcher import fetch
 
-from flask import Flask, jsonify, redirect, render_template, request, url_for
-from . import paths
-
 paths.ensure_runtime_dirs()
+
 
 def build_app():
     """Build the application: configuration, database, then routes."""
-    app = Flask(__name__, template_folder=str(paths.TEMPLATES_DIR),
-                instance_path=str(paths.INSTANCE_DIR))
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + str(paths.INSTANCE_DIR / "changewatch.db")
+    app = Flask(
+        __name__, template_folder=str(paths.TEMPLATES_DIR), instance_path=str(paths.INSTANCE_DIR)
+    )
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + str(
+        paths.INSTANCE_DIR / "changewatch.db"
+    )
     db.init_app(app)
     with app.app_context():
         db.create_all()
@@ -41,10 +46,15 @@ def build_app():
             interval = int(request.form.get("interval", "") or 3600)
         except ValueError:
             interval = 3600
-        db.session.add(Watch(url=url, selector=request.form.get("selector", "").strip(),
-                             interval=interval,
-                             ignore_pattern=request.form.get("ignore_pattern", "").strip(),
-                             alert_url=request.form.get("alert_url", "").strip()))
+        db.session.add(
+            Watch(
+                url=url,
+                selector=request.form.get("selector", "").strip(),
+                interval=interval,
+                ignore_pattern=request.form.get("ignore_pattern", "").strip(),
+                alert_url=request.form.get("alert_url", "").strip(),
+            )
+        )
         db.session.commit()
         return redirect(url_for("index"))
 
@@ -74,12 +84,14 @@ def build_app():
 
     @app.get("/api/health")
     def health():
-        return jsonify({"status": "ok", "watches": Watch.query.count(),
-                        "snapshots": Snapshot.query.count()})
+        return jsonify(
+            {"status": "ok", "watches": Watch.query.count(), "snapshots": Snapshot.query.count()}
+        )
 
     if __name__ == "__main__":
         app.run(host="0.0.0.0", port=5000)
 
     return app
+
 
 app = build_app()

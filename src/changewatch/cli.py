@@ -3,11 +3,14 @@
 Heavy imports (Flask-SQLAlchemy through models.py) happen inside the command
 body, so `python cli.py --help` works without the database layer installed.
 """
+
 import argparse
 
+
 def cmd_add(args):
-    from .models import Watch, db
     from ._app import app
+    from .models import Watch, db
+
     with app.app_context():
         w = Watch(url=args.url, selector=args.selector, interval=args.interval)
         db.session.add(w)
@@ -15,13 +18,16 @@ def cmd_add(args):
         print(f"watch #{w.id} added")
     return 0
 
+
 def cmd_list(_args):
-    from .models import Watch
     from ._app import app
+    from .models import Watch
+
     with app.app_context():
         for w in Watch.query.order_by(Watch.id).all():
             print(f"#{w.id}  {w.url}  selector={w.selector or '-'}  every {w.interval}s")
     return 0
+
 
 def main():
     p = argparse.ArgumentParser(prog="changewatch", description="watch web pages for changes")

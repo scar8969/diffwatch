@@ -1,4 +1,6 @@
-import difflib, re
+import difflib
+import re
+
 
 def diff(old, new):
     old_lines = old.splitlines()
@@ -14,6 +16,7 @@ def diff(old, new):
         elif tag == "insert":
             added += new_lines[j1:j2]
     return {"added": added, "removed": removed}
+
 
 def apply_ignore(content, pattern):
     if not pattern:

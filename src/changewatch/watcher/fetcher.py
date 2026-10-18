@@ -1,7 +1,9 @@
-import re, urllib.request
+import hashlib
+import re
+import urllib.request
+
 from bs4 import BeautifulSoup
 
-import hashlib
 
 def fetch(url, selector="", headers=None):
     req = urllib.request.Request(url, headers=headers or {"User-Agent": "changewatch/1.0"})
@@ -14,6 +16,7 @@ def fetch(url, selector="", headers=None):
         soup = BeautifulSoup(html, "html.parser")
         content = normalize(soup.get_text())
     return content, hashlib.sha256(content.encode()).hexdigest()
+
 
 def normalize(text):
     return re.sub(r"\s+", " ", text).strip()
