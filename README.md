@@ -66,6 +66,7 @@ Every route below is in [`openapi/diffwatch.yaml`](openapi/diffwatch.yaml) and i
 | Method | Path | What it does |
 | --- | --- | --- |
 | `GET` | `/api/watches` | list |
+| `POST` | `/api/watches` | add watch |
 | `POST` | `/api/watches/<id>/check` | manual check |
 | `GET` | `/api/watches/<id>/snapshots` | history |
 
@@ -99,7 +100,7 @@ These numbers were produced on this checkout by `pytest --cov` and by booting `w
 
 | Signal | Value |
 | --- | --- |
-| Tests | **24 / 24 passed** (2.3 s, exit 0) |
+| Tests | **24 / 24 passed** (2.5 s, exit 0) |
 | Line coverage | **68.1%** — 427 of 604 statements |
 | Source | 16 files / 1,351 lines |
 | Test code | 4 files / 229 lines |
