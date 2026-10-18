@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 def tick():
     from ..models import Snapshot, Watch, db
     from .alerts import alert
-    from .differ import diff
-    from .fetcher import apply_ignore, fetch
+    from .differ import apply_ignore, diff
+    from .fetcher import fetch
 
     changed = []
     for w in Watch.query.all():

@@ -54,7 +54,7 @@ def manual_check(wid):
         changes = {"added": [], "removed": []}
     db.session.add(Snapshot(watch_id=wid, content=content, hash=h))
     w.last_hash = h
-    w.last_checked = datetime.utcnow()
+    w.last_checked = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
     db.session.commit()
     return jsonify({"changed": changed, **changes})
 
