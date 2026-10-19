@@ -4,7 +4,7 @@ Every line below was produced by a command run against this exact checkout, on t
 
 | | |
 | --- | --- |
-| Generated | 2026-10-19 02:58 |
+| Generated | 2026-10-19 09:41 |
 | Python | 3.14.7 |
 | Platform | Windows 11 |
 
@@ -15,7 +15,7 @@ python -m pytest -q
 ```
 
 - exit code **0**
-- 24 passed in 1.92s
+- 24 passed in 1.34s
 
 ## Static gates
 
@@ -36,6 +36,22 @@ The application was imported through `wsgi.py` and each GET path declared in `op
 | 200 | `/api/watches/1/snapshots` | 17 | application/json |
 
 2 paths walked, 0 of them raised or answered 5xx.
+
+## CLI
+
+```
+usage: changewatch [-h] {add,list} ...
+
+watch web pages for changes
+
+positional arguments:
+  {add,list}
+    add       add a watch
+    list      list watches
+
+options:
+  -h, --help  show this help message and exit
+```
 
 ## Screenshots
 
