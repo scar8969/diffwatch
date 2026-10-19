@@ -129,7 +129,7 @@ Produced on this checkout by `pytest --cov` and by booting `wsgi.py` and issuing
 | --- | --- |
 | Tests | **24 / 24 passed** (2.5 s, exit 0) |
 | Line coverage | **68.1%** — 427 of 604 statements |
-| Source | 16 files / 1,352 lines |
+| Source | 16 files / 1,371 lines |
 | Test code | 4 files / 229 lines |
 | Documented paths | 3 in the spec, 2 GET |
 | Live probe | 10 GET requests to the booted app, **8 answered 200** |
@@ -166,11 +166,11 @@ diffwatch/
 │   ├── config.py                       168  Environment-driven configuration for changewatch
 │   ├── app.py                          119  Application factory for changewatch
 │   ├── errors.py                       108  Typed application errors and their HTTP mapping for 
-│   ├── _app.py                          98  diffwatch — Flask application entry point
+│   ├── _app.py                          97  diffwatch — Flask application entry point
 │   ├── watcher/api.py                   75  
 │   ├── paths.py                         52  Filesystem layout for changewatch
 │   ├── cli.py                           51  changewatch command line interface
-│   ├── watcher/scheduler.py             33  
+│   ├── watcher/scheduler.py             35  
 │   ├── models.py                        28  
 │   ├── watcher/differ.py                25  
 ├── openapi/diffwatch.yaml                 the contract of record

@@ -6,11 +6,10 @@ The watch list page is templates/index.html (there is no watches.html).
 The SQLite file also lives in the project-root instance/ directory.
 """
 
-import datetime
-
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 from . import paths
+from .clock import utcnow
 from .models import Snapshot, Watch, db
 from .watcher.api import bp
 from .watcher.differ import diff
@@ -69,7 +68,7 @@ def build_app():
             diff(old.content if old else "", content)  # exercised for parity with the API
         db.session.add(Snapshot(watch_id=wid, content=content, hash=h))
         w.last_hash = h
-        w.last_checked = datetime.datetime.utcnow()
+        w.last_checked = utcnow()
         db.session.commit()
         return redirect(url_for("watch_diff", wid=wid))
 

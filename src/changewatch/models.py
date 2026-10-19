@@ -1,6 +1,6 @@
-from datetime import datetime
-
 from flask_sqlalchemy import SQLAlchemy
+
+from .clock import utcnow
 
 db = SQLAlchemy()
 
@@ -15,7 +15,7 @@ class Watch(db.Model):
     alert_url = db.Column(db.String(512), default="")
     last_hash = db.Column(db.String(64), default="")
     last_checked = db.Column(db.DateTime, nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=utcnow)
 
 
 class Snapshot(db.Model):
@@ -24,4 +24,4 @@ class Snapshot(db.Model):
     watch_id = db.Column(db.Integer, db.ForeignKey("watches.id"), index=True)
     content = db.Column(db.Text, default="")
     hash = db.Column(db.String(64), default="")
-    at = db.Column(db.DateTime, default=datetime.utcnow)
+    at = db.Column(db.DateTime, default=utcnow)

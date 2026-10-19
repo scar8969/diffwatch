@@ -1,5 +1,7 @@
 import hashlib
-from datetime import datetime, timedelta
+from datetime import timedelta
+
+from ..clock import utcnow
 
 
 def tick():
@@ -10,7 +12,7 @@ def tick():
 
     changed = []
     for w in Watch.query.all():
-        if w.last_checked and datetime.utcnow() - w.last_checked < timedelta(seconds=w.interval):
+        if w.last_checked and utcnow() - w.last_checked < timedelta(seconds=w.interval):
             continue
         try:
             content, h = fetch(w.url, w.selector)
@@ -24,9 +26,9 @@ def tick():
                 changed.append(w.id)
             db.session.add(Snapshot(watch_id=w.id, content=content, hash=h))
             w.last_hash = h
-            w.last_checked = datetime.utcnow()
+            w.last_checked = utcnow()
             db.session.commit()
         except Exception:
-            w.last_checked = datetime.utcnow()
+            w.last_checked = utcnow()
             db.session.commit()
     return changed
